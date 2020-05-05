@@ -1,45 +1,21 @@
-from tkinter import *
-import requests
-from bs4 import BeautifulSoup
+try:
+    from tkinter import *
+    import requests
+    from bs4 import BeautifulSoup
+except:
+    print('Required libraries are missing')
 
 root = Tk()
 root.minsize(500, 300)
 root.maxsize(500, 300)
 root.title('Watch Metal Price')
-
-OPTIONS = { 'Gold':100, 'Bronze':200, 'silver':300, 'platinum':400 }
-
-'''
-def gold_rates_scraping():
-    main_url = " https://www.paisabazaar.com/gold-rate/"
-    r = requests.get(url=main_url)
-    soup = BeautifulSoup(r.text, 'html.parser')
-    data = soup.findAll(class_='g-6-s goldRate__price goldRatePriceHighLite')
-    a = []
-    for i in data:
-        rate = i.text[3:]
-        a.append(rate)
-    return a[0]
-'''
-
-def GP():
-    ans = Variable.get()
-    DICT = OPTIONS.get(ans,None)
-    converted = float(DICT)
-    result.delete(0,END)
-    result.insert(0,converted)
-
-
     
 def gold_price():
     main_url = " https://www.paisabazaar.com/gold-rate/"
     r = requests.get(url=main_url)
     soup = BeautifulSoup(r.text, 'html.parser')
     data = soup.findAll(class_='g-6-s goldRate__price goldRatePriceHighLite')
-    a = []
-    for i in data:
-        rate = i.text[3:]
-        a.append(rate)
+    a = [i.text[3:] for i in data]
     return a[0]
     
 def silver_price():
